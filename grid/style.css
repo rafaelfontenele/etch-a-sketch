@@ -1,0 +1,21 @@
+* {
+    font-size: 26px;
+    color: black;
+}
+
+body {
+    background: blue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.gridContainer {
+    display:grid;
+    background-color: blueviolet;
+    grid-template-columns: repeat(5,50px);
+    width: 600px;
+    height: 600px;
+    background-color: white;
+}
+
