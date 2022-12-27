@@ -1,5 +1,15 @@
 const body = document.querySelector('body');
 const grid = document.querySelector('.gridContainer');
+const clearButton = document.querySelector('.reset-btn');
+const gridSizeDisplay = document.querySelector('.grid-size-display');
+const gridSizeRange = document.querySelector('.grid-size-range');
+const pencilColor = '#000000';
+const bgColor = '#008000';
+const bgColorChanger = document.querySelector('.bgColorChanger');
+const pencilColorChanger = document.querySelector('.pencilColorChanger');
+let gridSize = '12';
+gridSizeDisplay.textContent = `gridSize (${gridSize} x ${gridSize})`;
+let globalLock = false;
 
 
 function createGrid(size) { /// createGrid(4) means a grid of 4 x 4
@@ -23,7 +33,20 @@ function createGrid(size) { /// createGrid(4) means a grid of 4 x 4
 
 }
 
+function clearGrid() {
+  while (grid.firstChild) {
+    grid.removeChild(grid.firstChild);
+  }
 
+}
+
+function changeGridSizeDisplay(newSize) {
+  gridSizeDisplay.textContent = `gridSize (${newSize} x ${newSize})`;
+}
+
+function updateGridSize(newSize) {
+
+}
 
 function playAudio(url) {
     new Audio(url).play();
@@ -33,6 +56,32 @@ function openUrl() {
     var url = 'https://github.com/etzoider?tab=repositories';
     window.open(url);
 }
+
+function changePencilColor(newColor) {
+  pencilColor = newColor;
+}
+
+function changeBgColor(newColor) {
+  bgColor = newColor;
+}
+
+///event listeners
+clearButton.addEventListener('click', function() {
+  clearGrid();
+})
+gridSizeRange.addEventListener('change', function() {
+  const newGridSize = this.value;
+  changeGridSizeDisplay(newGridSize);
+  updateGridSize(newGridSize);
+})
+pencilColorChanger.addEventListener('change', function() {
+  const newColor = this.value;
+  changePencilColor(`${newColor}`);
+})
+bgColorChanger.addEventListener('change', function() {
+  const newColor = this.value;
+  changeBgColor(`${newColor}`);
+})
 
 
 createGrid(12);
