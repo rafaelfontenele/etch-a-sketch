@@ -8,9 +8,9 @@ const bgColor = '#008000';
 const bgColorChanger = document.querySelector('.bgColorChanger');
 const pencilColorChanger = document.querySelector('.pencilColorChanger');
 let gridSize = '12';
-gridSizeDisplay.textContent = `gridSize (${gridSize} x ${gridSize})`;
+gridSizeDisplay.textContent = `${gridSize} x ${gridSize}`;
 let globalLock = false;
-
+let paintingLock = false;
 
 function createGrid(size) { /// createGrid(4) means a grid of 4 x 4
   const gridWidth = grid.offsetWidth;
@@ -25,14 +25,32 @@ function createGrid(size) { /// createGrid(4) means a grid of 4 x 4
 
   //adding size*size squares to grid container
   for (let i=0;i<size**2;i++) {
+
     let newSquare = document.createElement('div');
     newSquare.classList.add('gridItem');
+
+    //newSquare.addEventListener('mousedown', unlockPainting, false);
+    newSquare.addEventListener('mouseover', paintSquare, false);
+    //ewSquare.addEventListener('mouseup', lockPainting, false);
+    //newSquare.addEventListener('mouseout', lockPainting, false);
+
+
     grid.appendChild(newSquare);
   }
+}
   
-
+function unlockPainting() {
+  paintingLock = false;
 }
 
+function lockPainting() {
+  paintingLock = true;
+}
+function paintSquare(event) {
+  if (!paintingLock) {
+    event.target.style.background = pencilColor;
+  }
+}
 function clearGrid() {
   while (grid.firstChild) {
     grid.removeChild(grid.firstChild);
@@ -41,11 +59,14 @@ function clearGrid() {
 }
 
 function changeGridSizeDisplay(newSize) {
-  gridSizeDisplay.textContent = `gridSize (${newSize} x ${newSize})`;
+  gridSizeDisplay.textContent = `(${newSize} x ${newSize}`;
 }
 
 function updateGridSize(newSize) {
-
+  if (!globalLock) {
+    clearGrid();
+    createGrid(newSize);
+  }
 }
 
 function playAudio(url) {

@@ -48,7 +48,12 @@ body {
     margin-top: 10px;
     justify-content: center;
     gap: 10%;
+    font-weight: 600;
 }    
+
+.grid-size-display {
+    text-align: center;
+}
 
 
 .gridContainer {
