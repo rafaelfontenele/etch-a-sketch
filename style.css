@@ -8,12 +8,12 @@
     --light-grey: rgba(51,51,51,0.2);
     --transition-time: 0.4s;
     --transition-scale: 1.2;
-}
+}    
 * {
     font-size: 22px;
     padding:0;
     margin:0;
-}
+}    
 
 body {
     display: flex;
@@ -22,45 +22,46 @@ body {
     flex-direction: column;
     background-color: var(--dark-grey);
     
-}
+}    
 
 
 
 .header{
     padding-top:10px;
-}
+}    
 
 .et-logo img {
     width: 60px;
     position: static;
     transition: all var(--transition-time) ease;
-}
+}    
 
 .et-logo img:hover {
     transform: scale(var(--transition-scale));
-}
+}    
 
 .wrapper {
     display: flex;
     flex-direction: row;
     width:100%;
     height: auto;
-    margin-top: 40px;
+    margin-top: 10px;
     justify-content: center;
     gap: 10%;
+}    
+
+
+.gridContainer {
+    display:grid;
+    background-color: white;
+    width: 600px;
+    height: 600px;
 }
 
-
-
-.grid {
-    display: grid;
-    resize: none;
-    border: 2px solid orange;
-    width: 500px;
-    height: 500px;
-
+.gridItem {
+    background-color: green;
+    border: 1px solid black;
 }
-
 .command-menu {
     display: inherit;
     flex-direction: column;
@@ -68,7 +69,7 @@ body {
     justify-content: space-around;
     border: 2px solid black;
     background-color: var(--light-grey)
-}
+}    
 
 .btn-row {
     display: flex;
@@ -76,7 +77,7 @@ body {
     justify-content: space-around;
     width: 100%;
     gap: 20px;
-}
+}    
 
 button {
     background-color: var(--javascript-blue-light);
@@ -91,22 +92,22 @@ button {
     padding: 15px;
     text-align: center;
     font-size: 16px;
-}
+}    
 
 .toggle-switch {
     width:100%;
     height:60px;
     border-radius: 20px;
     background-color: var(--javascript-blue-light);
-}
+}    
 
 
 button:hover {
     background-color: var(--javascript-blue);
-}
+}    
 button:active {
     background-color:var(--javascript-blue-dark);
-}
+}    
 
 .lgbt {
     width:50px;
@@ -117,33 +118,33 @@ button:active {
             #119F0B 49.98%, 66.64%,
             #0644B3 66.64%, 83.3%,
             #C22EDC 83.3%);
-}
+}            
 
 input[type=range] {
     appearance: none;
     -webkit-appearance: none;
     background: var(--dark-grey)
-}
+}    
 
 input[type=range] {
     height: 26px;
     margin: 10px 0;
     width: 100%;
-  }
+  }  
   input[type=range]:focus {
-    outline: none;
-  }
+    outline: none;  
+  }  
   input[type=range]::-webkit-slider-runnable-track {
-    width: 100%;
+    width: 100%;  
     height: 14px;
     cursor: pointer;
     box-shadow: 1px 1px 1px #50555C;
     background: #50555C;
     border-radius: 14px;
     border: 0px solid #000000;
-  }
+  }  
   input[type=range]::-webkit-slider-thumb {
-    box-shadow: 0px 0px 0px #000000;
+    box-shadow: 0px 0px 0px #000000;  
     border: 0px solid #000000;
     height: 20px;
     width: 40px;
