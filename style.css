@@ -1,7 +1,7 @@
 :root {
-    --javascript-blue-dark: rgb(0, 72, 136);
+    --javascript-blue-dark: rgb(20, 100, 150, 1);
     --javascript-blue: rgba(0,100,190,1);
-    --javascript-blue-light: rgba(0,100,190,0.6);
+    --javascript-blue-light: rgba(0,100,190,0.5);
     --python-yellow: rgba(255,210,65,1);
     --python-blue: rgba(52,112,163);
     --dark-grey: rgba(51,51,51,1);
@@ -27,6 +27,10 @@ body {
 
 .header{
     padding-top:10px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    align-items: center;
 }    
 
 .et-logo img {
@@ -44,7 +48,8 @@ body {
     flex-direction: row;
     width:100%;
     height: auto;
-    margin-top: 10px;
+    margin-top: 40px;
+    margin-bottom: 30px;
     justify-content: center;
     gap: 10%;
     font-weight: 600;
@@ -65,6 +70,26 @@ body {
 .gridItem {
     background-color: #008000;
     border: 1px solid #000000;
+}
+
+.pencil-color-input,
+.bg-color-input {
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.pencilColorChanger,
+.bgColorChanger {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: transparent;
+    width: 60px;
+    height: 60px;
+    cursor: pointer;
+    border: none;
 }
 
 
@@ -99,15 +124,20 @@ button {
     padding: 15px;
     text-align: center;
     font-size: 16px;
+    border-radius: 10px;
 }    
 
-.toggle-switch {
+.eraser {
     width:100%;
     height:60px;
     border-radius: 20px;
     background-color: var(--javascript-blue-light);
 }    
 
+.eraser-toggled {
+    background-color: var(--javascript-blue-dark);
+    border: 5px solid rgba(0,0,0, 0.7);
+}
 
 button:hover {
     background-color: var(--javascript-blue);

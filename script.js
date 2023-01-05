@@ -5,7 +5,10 @@ const gridSizeDisplay = document.querySelector('.grid-size-display');
 const gridSizeRange = document.querySelector('.grid-size-range');
 const bgColorChanger = document.querySelector('.bgColorChanger');
 const pencilColorChanger = document.querySelector('.pencilColorChanger');
+const eraserButton = document.querySelector('.toggle-switch,.eraser');
+let eraser = false;
 let pencilColor = '#000000';
+let lastPencilColor = '';
 let bgColor = '#008000';
 let borderColor = '#000000';
 let gridSize = '12';
@@ -53,9 +56,16 @@ function lockPainting() {
 
 function paintSquare(event) {
   if (!paintingLock) {
-    event.target.style.background = pencilColor;
+    if (eraser == false) {
+      event.target.style.background = pencilColor;
+    }
+
+    if (eraser == true) {
+      event.target.style.background = bgColor;
+    }
   }
 }
+
 
 
 function splitRgb(rgb) {
@@ -128,16 +138,30 @@ function changeBgColor(newColor) { // iterate every cell in the grid,
   const gridChildren = grid.children;
   for (let i=0;i<gridChildren.length;i++) {
     let item = gridChildren[i];
-    if (item.backgroundColor == bgColor) {
-      item.style.background = newColor
-    }
+    item.style.background = newColor
   }
   bgColor = newColor;
  
 }
 
 
+function toggleEraserButton() {
+  if (eraserButton.classList.contains('eraser-toggled')) {
+    eraserButton.classList.remove('eraser-toggled');
+  } else {
+    eraserButton.classList.add('eraser-toggled');
+  }
+}
+
 ///rest of event listeners
+eraserButton.addEventListener('click', function() {
+  toggleEraserButton();
+  if (eraser == false) {
+    eraser = true;
+  } else {
+    eraser = false;
+  }
+})
 clearButton.addEventListener('click', function() {
   clearGrid();
   createGrid(gridSize);
@@ -153,7 +177,7 @@ pencilColorChanger.addEventListener('input', function() {
   console.log(newColor);
   changePencilColor(newColor);
 })
-bgColorChanger.addEventListener('input', function() {
+bgColorChanger.addEventListener('change', function() {
   const newColor = this.value;
   changeBgColor(newColor);
 })
