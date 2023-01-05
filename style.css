@@ -25,7 +25,6 @@ body {
 }    
 
 
-
 .header{
     padding-top:10px;
 }    
@@ -65,8 +64,11 @@ body {
 
 .gridItem {
     background-color: #008000;
-    border: 1px solid black;
+    border: 1px solid #000000;
 }
+
+
+
 .command-menu {
     display: inherit;
     flex-direction: column;

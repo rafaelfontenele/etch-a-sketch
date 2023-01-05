@@ -3,14 +3,15 @@ const grid = document.querySelector('.gridContainer');
 const clearButton = document.querySelector('.reset-btn');
 const gridSizeDisplay = document.querySelector('.grid-size-display');
 const gridSizeRange = document.querySelector('.grid-size-range');
-const pencilColor = '#000000';
-const bgColor = '#008000';
 const bgColorChanger = document.querySelector('.bgColorChanger');
 const pencilColorChanger = document.querySelector('.pencilColorChanger');
+let pencilColor = '#000000';
+let bgColor = '#008000';
+let borderColor = '#000000';
 let gridSize = '12';
-gridSizeDisplay.textContent = `${gridSize} x ${gridSize}`;
+gridSizeDisplay.textContent = `(${gridSize} x ${gridSize})`;
 let globalLock = false;
-let paintingLock = false;
+let paintingLock = true;
 
 function createGrid(size) { /// createGrid(4) means a grid of 4 x 4
   const gridWidth = grid.offsetWidth;
@@ -28,29 +29,66 @@ function createGrid(size) { /// createGrid(4) means a grid of 4 x 4
 
     let newSquare = document.createElement('div');
     newSquare.classList.add('gridItem');
+    newSquare.style.background = bgColor;
 
-    //newSquare.addEventListener('mousedown', unlockPainting, false);
+    newSquare.addEventListener('mousedown', unlockPainting, false);
     newSquare.addEventListener('mouseover', paintSquare, false);
-    //ewSquare.addEventListener('mouseup', lockPainting, false);
-    //newSquare.addEventListener('mouseout', lockPainting, false);
-
-
+    newSquare.addEventListener('mouseup', lockPainting, false);
+    
+    
     grid.appendChild(newSquare);
   }
+  grid.addEventListener('mouseleave', lockPainting, false);
 }
   
 function unlockPainting() {
   paintingLock = false;
+  this.style.background = pencilColor;
+
 }
 
 function lockPainting() {
   paintingLock = true;
 }
+
 function paintSquare(event) {
   if (!paintingLock) {
     event.target.style.background = pencilColor;
   }
 }
+
+
+function splitRgb(rgb) {
+  let colorArr = rgb.slice(rgb.indexOf("(") + 1, rgb.indexOf(")")).split(", ");
+  
+  let obj = new Object();
+  
+  colorArr.forEach((k, i) => {
+  obj[colors[i]] = k  })
+  
+}
+
+
+function valueToHex(value) {
+  return value.toString(16);
+}
+
+
+function RGBToHex(r,g,b) {
+  r = r.toString(16);
+  g = g.toString(16);
+  b = b.toString(16);
+
+  if (r.length == 1)
+    r = "0" + r;
+  if (g.length == 1)
+    g = "0" + g;
+  if (b.length == 1)
+    b = "0" + b;
+
+  return "#" + r + g + b;
+}
+
 function clearGrid() {
   while (grid.firstChild) {
     grid.removeChild(grid.firstChild);
@@ -59,15 +97,16 @@ function clearGrid() {
 }
 
 function changeGridSizeDisplay(newSize) {
-  gridSizeDisplay.textContent = `(${newSize} x ${newSize}`;
+  gridSizeDisplay.textContent = `(${newSize} x ${newSize})`;
 }
 
+
 function updateGridSize(newSize) {
-  if (!globalLock) {
-    clearGrid();
-    createGrid(newSize);
-  }
+  clearGrid();
+  createGrid(newSize);
+  
 }
+
 
 function playAudio(url) {
     new Audio(url).play();
@@ -78,31 +117,47 @@ function openUrl() {
     window.open(url);
 }
 
+
 function changePencilColor(newColor) {
   pencilColor = newColor;
 }
 
-function changeBgColor(newColor) {
+
+function changeBgColor(newColor) { // iterate every cell in the grid,
+  // check if its unpainted, change color then update bg color
+  const gridChildren = grid.children;
+  for (let i=0;i<gridChildren.length;i++) {
+    let item = gridChildren[i];
+    if (item.backgroundColor == bgColor) {
+      item.style.background = newColor
+    }
+  }
   bgColor = newColor;
+ 
 }
 
-///event listeners
+
+///rest of event listeners
 clearButton.addEventListener('click', function() {
   clearGrid();
+  createGrid(gridSize);
 })
 gridSizeRange.addEventListener('change', function() {
   const newGridSize = this.value;
+  gridSize = newGridSize;
   changeGridSizeDisplay(newGridSize);
   updateGridSize(newGridSize);
 })
-pencilColorChanger.addEventListener('change', function() {
+pencilColorChanger.addEventListener('input', function() {
   const newColor = this.value;
-  changePencilColor(`${newColor}`);
+  console.log(newColor);
+  changePencilColor(newColor);
 })
-bgColorChanger.addEventListener('change', function() {
+bgColorChanger.addEventListener('input', function() {
   const newColor = this.value;
-  changeBgColor(`${newColor}`);
+  changeBgColor(newColor);
 })
 
 
-createGrid(12);
+createGrid(gridSize);
+
