@@ -2,7 +2,7 @@
 
 
 LIVE: 
-https://etzoider.github.io/etch-a-sketch/
+https://rafaelfontenele.github.io/etch-a-sketch/
 
 
 (Read RAW for img) Etch a Sketch project from the-odin-project frontend course
